@@ -1,0 +1,44 @@
+// Навыки без покрытия в программе
+MATCH (s:Skill)
+WHERE s.name IN [
+    'excel',
+    'power bi',
+    'sql',
+    'машинное обучение',
+    'docker scikit learn',
+    'airflow',
+    'a/b тесты',
+    'api',
+    'язык программирования r',
+    'etl'
+]
+AND NOT ( (:Syllabus)-[:IS_SIMILAR_TO]->(s) OR (:Competence)-[:IS_SIMILAR_TO]->(s) )
+AND s.embedding IS NOT NULL
+
+WITH s
+
+MATCH (target)-[rel]->(c:MCourse)
+WHERE (
+      (target:MSkill AND type(rel) = 'DEVELOPED_BY')
+   OR (target:MResult AND type(rel) = 'FORMED_BY')
+)
+AND target.embedding IS NOT NULL
+AND c.title IS NOT NULL AND c.link IS NOT NULL
+
+WITH s, target, c,
+     gds.similarity.cosine(s.embedding, target.embedding) AS cosineSimilarity
+WHERE cosineSimilarity > 0.81
+
+WITH s.name AS UncoveredSkill, 
+     collect({
+       CourseCompetence: coalesce(target.name, target.text),
+       CourseTitle: c.title,
+       CourseLink: c.link,
+       CosineSimilarity: round(cosineSimilarity, 3)
+     }) AS CourseInfo
+
+WITH UncoveredSkill, 
+     [course IN CourseInfo | course] AS SortedCourses
+
+RETURN UncoveredSkill, SortedCourses
+ORDER BY UncoveredSkill
