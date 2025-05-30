@@ -1,0 +1,30 @@
+// Сравниваем Syllabus и Competence с Skill, Requirement, Responsibility
+MATCH (a)
+WHERE (a:Syllabus OR a:Competence)
+  AND a.embedding IS NOT NULL
+
+MATCH (n)
+WHERE (n:Skill OR n:Requirement OR n:Responsibility)
+  AND n.embedding IS NOT NULL
+
+WITH a, n,
+     reduce(prod = 0.0, x IN range(0, size(a.embedding)-1) | prod + a.embedding[x] * n.embedding[x]) AS dotProduct,
+     sqrt(reduce(sumX = 0.0, x IN a.embedding | sumX + x^2)) AS magnitudeA,
+     sqrt(reduce(sumY = 0.0, y IN n.embedding | sumY + y^2)) AS magnitudeN
+WITH a, n, dotProduct / (magnitudeA * magnitudeN) AS cosineSimilarity
+WHERE cosineSimilarity > 0.87
+
+MERGE (a)-[r:SIMILAR_TO]->(n)
+SET r.cos_sim = cosineSimilarity
+
+MATCH (a)-[r:SIMILAR_TO]->(n)
+WHERE a:Syllabus OR a:Competence
+  AND (n:Skill OR n:Requirement OR n:Responsibility)
+RETURN 
+  labels(a)[0] AS SourceType,
+  a.name AS SourceText,
+  labels(n)[0] AS TargetType,
+  coalesce(n.name, n.text) AS TargetText,
+  r.cos_sim AS Similarity
+ORDER BY Similarity DESC
+
