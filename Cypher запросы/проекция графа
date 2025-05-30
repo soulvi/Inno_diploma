@@ -1,0 +1,15 @@
+CALL gds.graph.project(
+  'myGraph_v3',
+  [
+    'Syllabus', 'Competence',
+    'Skill', 'Requirement', 'Responsibility',
+    'MSkill', 'MResult'
+  ],
+  {
+    IS_SIMILAR_TO: { type: 'SIMILAR_TO', orientation: 'UNDIRECTED' },
+    IS_SIMILAR_TO2: { type: 'IS_SIMILAR_TO2', orientation: 'UNDIRECTED' },
+    DEVELOPED_BY: { type: 'DEVELOPED_BY', orientation: 'UNDIRECTED' },
+    FORMED_BY:    { type: 'FORMED_BY',    orientation: 'UNDIRECTED' }
+  }
+)
+YIELD graphName, nodeCount, relationshipCount
