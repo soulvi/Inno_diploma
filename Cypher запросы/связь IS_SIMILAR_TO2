@@ -1,0 +1,15 @@
+MATCH (s)
+WHERE (s:Skill OR s:Requirement OR s:Responsibility) 
+  AND s.embedding IS NOT NULL
+WITH s
+MATCH (m)
+WHERE (m:MSkill OR m:MResult) 
+  AND m.embedding IS NOT NULL
+WITH s, m,
+     reduce(prod = 0.0, x IN range(0, size(s.embedding)-1) | prod + s.embedding[x] * m.embedding[x]) AS dotProduct,
+     sqrt(reduce(sumX = 0.0, x IN s.embedding | sumX + x^2)) AS magnitudeS,
+     sqrt(reduce(sumY = 0.0, y IN m.embedding | sumY + y^2)) AS magnitudeM
+WITH s, m, dotProduct / (magnitudeS * magnitudeM) AS cosineSimilarity
+WHERE cosineSimilarity > 0.81
+MERGE (s)-[r:IS_SIMILAR_TO2]->(m)
+SET r.cos_sim = cosineSimilarity;
