@@ -1,0 +1,78 @@
+// 1. Создание узлов курсов
+LOAD CSV WITH HEADERS FROM 'file:///mooc_final_emb.csv' AS row
+MERGE (c:MCourse {title: row.title})
+SET c.link = row.link,
+    c.description = row.description,
+    c.about_course = row.about_course,
+    c.course_format = row.course_format;
+
+// 2. Загрузка компетенций как навыков
+LOAD CSV WITH HEADERS FROM 'file:///mooc_final_emb.csv' AS row
+WITH row 
+WHERE row.competence IS NOT NULL AND row.competence <> "" 
+  AND row.competence_embeddings_str IS NOT NULL AND row.competence_embeddings_str <> ""
+UNWIND range(0, size(split(row.competence, ';'))-1) AS i
+WITH row, i,
+     trim(split(row.competence, ';')[i]) AS skill_name,
+     split(row.competence_embeddings_str, '|')[i] AS embedding_str
+WHERE skill_name <> "" AND embedding_str <> ""
+WITH row, skill_name, embedding_str
+WHERE size(split(embedding_str, ',')) > 1
+MERGE (s:MSkill {name: skill_name})
+SET s.embedding = [x IN split(embedding_str, ',') | toFloat(trim(x))]
+WITH row, s
+MATCH (c:MCourse {title: row.title})
+MERGE (s)-[:DEVELOPED_BY]->(c);
+
+// 3. Загрузка результатов обучения
+LOAD CSV WITH HEADERS FROM 'file:///mooc_final_emb.csv' AS row
+WITH row 
+WHERE row.result_knowledge IS NOT NULL AND row.result_knowledge <> "" 
+  AND row.result_knowledge_embeddings_str IS NOT NULL AND row.result_knowledge_embeddings_str <> ""
+UNWIND range(0, size(split(row.result_knowledge, ';'))-1) AS i
+WITH row, i,
+     trim(split(row.result_knowledge, ';')[i]) AS result_text,
+     split(row.result_knowledge_embeddings_str, '|')[i] AS embedding_str
+WHERE result_text <> "" AND embedding_str <> ""
+WITH row, result_text, embedding_str
+WHERE size(split(embedding_str, ',')) > 1
+MERGE (r:MResult {text: result_text})
+SET r.embedding = [x IN split(embedding_str, ',') | toFloat(trim(x))]
+WITH row, r
+MATCH (c:MCourse {title: row.title})
+MERGE (r)-[:FORMED_BY]->(c);
+
+// 4. Загрузка модулей
+LOAD CSV WITH HEADERS FROM 'file:///mooc_final_emb.csv' AS row
+WITH row 
+WHERE row.syllabus IS NOT NULL AND row.syllabus <> "" 
+  AND row.syllabus_embeddings_str IS NOT NULL AND row.syllabus_embeddings_str <> ""
+UNWIND range(0, size(split(row.syllabus, ';'))-1) AS i
+WITH row, i,
+     trim(split(row.syllabus, ';')[i]) AS module_name,
+     split(row.syllabus_embeddings_str, '|')[i] AS embedding_str
+WHERE module_name <> "" AND embedding_str <> ""
+WITH row, module_name, embedding_str
+WHERE size(split(embedding_str, ',')) > 1
+MERGE (m:MModule {name: module_name})
+SET m.embedding = [x IN split(embedding_str, ',') | toFloat(trim(x))]
+WITH row, m
+MATCH (c:MCourse {title: row.title})
+MERGE (c)-[:CONSISTS_OF]->(m);
+
+
+MATCH (c:MCourse {title: "Математические методы управления перевозками"})-[:CONSISTS_OF]->(m:MModule),
+       (s:MSkill)-[:DEVELOPED_BY]->(c),
+      (r:MResult)-[:FORMED_BY]->(c)
+RETURN c, m, s, r
+
+
+MATCH (c:MCourse)-[:CONSISTS_OF]->(m:MModule),
+      (s:MSkill)-[:DEVELOPED_BY]->(c)
+OPTIONAL MATCH (c)-[:HAS_SYLLABUS_ITEM]->(si:SyllabusItem)
+RETURN c, m, s, si
+LIMIT 100
+
+
+
+
