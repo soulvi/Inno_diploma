@@ -1,0 +1,59 @@
+// Гибридные рекомендации курсов для непокрытых навыков
+MATCH (s:Skill)
+WHERE s.name IN [
+    'excel',
+    'power bi',
+    'sql',
+    'машинное обучение',
+    'docker scikit learn',
+    'airflow',
+    'a/b тесты',
+    'api',
+    'язык программирования r',
+    'etl'
+]
+AND NOT ( (:Syllabus)-[:IS_SIMILAR_TO]->(s) OR (:Competence)-[:IS_SIMILAR_TO]->(s) )
+AND s.embedding IS NOT NULL
+AND s.graphEmbedding IS NOT NULL
+
+WITH s
+MATCH (target)-[rel]->(c:MCourse)
+WHERE (
+      (target:MSkill AND type(rel) = 'DEVELOPED_BY')
+   OR (target:MResult AND type(rel) = 'FORMED_BY')
+)
+AND target.embedding IS NOT NULL
+AND target.graphEmbedding IS NOT NULL
+AND c.title IS NOT NULL AND c.link IS NOT NULL
+
+WITH s, target, c,
+     gds.similarity.cosine(s.embedding, target.embedding) AS textSimilarity,
+     gds.similarity.cosine(s.graphEmbedding, target.graphEmbedding) AS graphSimilarity
+
+WITH s.name AS UncoveredSkill, 
+     coalesce(target.name, target.text) AS CourseCompetence,
+     c.title AS CourseTitle,
+     c.link AS CourseLink,
+     round(textSimilarity, 3) AS textSimilarity,
+     round(graphSimilarity, 3) AS graphSimilarity,
+     round(0.5 * textSimilarity + 0.5 * graphSimilarity, 3) AS hybridSimilarity
+
+WHERE hybridSimilarity > 0.8
+
+WITH UncoveredSkill, CourseCompetence, CourseTitle, CourseLink,
+     textSimilarity, graphSimilarity, hybridSimilarity
+
+ORDER BY UncoveredSkill, hybridSimilarity DESC
+
+WITH UncoveredSkill,
+     collect({
+       CourseCompetence: CourseCompetence,
+       CourseTitle: CourseTitle,
+       CourseLink: CourseLink,
+       TextSimilarity: textSimilarity,
+       GraphSimilarity: graphSimilarity,
+       HybridSimilarity: hybridSimilarity
+     }) AS SortedCourses
+
+RETURN UncoveredSkill, SortedCourses
+ORDER BY UncoveredSkill
