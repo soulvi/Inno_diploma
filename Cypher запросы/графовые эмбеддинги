@@ -1,0 +1,6 @@
+CALL gds.fastRP.write('myGraph_v3', {
+  embeddingDimension: 128,
+  iterationWeights: [0.8, 1, 1, 0.5],
+  writeProperty: 'graphEmbedding'
+})
+YIELD nodePropertiesWritten
