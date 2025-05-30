@@ -1,0 +1,39 @@
+LOAD CSV WITH HEADERS FROM 'file:///ep_inno_emb.csv' AS row
+MERGE (d:Discipline {name: row.discipline})
+MERGE (m:Module {name: row.module})
+MERGE (d)-[:MADE_UP_FROM]->(m)
+
+LOAD CSV WITH HEADERS FROM 'file:///ep_inno_emb.csv' AS row
+WITH row
+WHERE row.syllabus IS NOT NULL AND row.syllabus <> ""
+  AND row.syllabus_emb IS NOT NULL AND row.syllabus_emb <> ""
+UNWIND range(0, size(split(row.syllabus, ';')) - 1) AS idx
+WITH row, idx,
+     trim(split(row.syllabus, ';')[idx]) AS topic,
+     split(row.syllabus_emb, '|')[idx] AS emb_str
+WHERE topic <> "" AND emb_str <> ""
+MERGE (s:Syllabus {name: topic})
+SET s.embedding = [x IN split(emb_str, ',') | toFloat(trim(x))]
+MERGE (m:Module {name: row.module})
+MERGE (m)-[:MADE_UP_FROM]->(s)
+
+
+LOAD CSV WITH HEADERS FROM 'file:///ep_inno_emb.csv' AS row
+WITH row
+WHERE row.competence IS NOT NULL AND row.competence <> ""
+  AND row.competence_emb IS NOT NULL AND row.competence_emb <> ""
+UNWIND range(0, size(split(row.competence, ';')) - 1) AS idx
+WITH row, idx,
+     trim(split(row.competence, ';')[idx]) AS comp_text,
+     split(row.competence_emb, '|')[idx] AS emb_str
+WHERE comp_text <> "" AND emb_str <> ""
+MERGE (c:Competence {name: comp_text})
+SET c.embedding = [x IN split(emb_str, ',') | toFloat(trim(x))]
+MERGE (d:Discipline {name: row.discipline})
+MERGE (c)-[:CREATED_BY]->(d)
+
+
+MATCH (c:Competence)-[:CREATED_BY]->(d:Discipline {name: "Нейронные сети и глубокое обучение"})
+MATCH (d)-[:MADE_UP_FROM]->(m:Module)
+MATCH (m)-[:MADE_UP_FROM]->(s:Syllabus)
+RETURN c, d, m, s
