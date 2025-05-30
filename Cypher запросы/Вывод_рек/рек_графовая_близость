@@ -1,0 +1,50 @@
+// Навыки, не покрытые учебной программой
+MATCH (s:Skill)
+WHERE s.name IN [
+    'excel',
+    'power bi',
+    'sql',
+    'машинное обучение',
+    'docker scikit learn',
+    'airflow',
+    'a/b тесты',
+    'api',
+    'язык программирования r',
+    'etl'
+]
+AND NOT ( (:Syllabus)-[:IS_SIMILAR_TO]->(s) OR (:Competence)-[:IS_SIMILAR_TO]->(s) )
+AND s.graphEmbedding IS NOT NULL
+
+WITH s
+
+// Ищем курсы, которые потенциально покрывают нужные навыки
+MATCH (target)-[rel]->(c:MCourse)
+WHERE (
+      (target:MSkill AND type(rel) = 'DEVELOPED_BY')
+   OR (target:MResult AND type(rel) = 'FORMED_BY')
+)
+AND target.graphEmbedding IS NOT NULL
+AND c.title IS NOT NULL AND c.link IS NOT NULL
+
+WITH s, target, c,
+     gds.similarity.cosine(s.graphEmbedding, target.graphEmbedding) AS graphSimilarity
+
+WHERE graphSimilarity > 0.8
+WITH s.name AS UncoveredSkill, 
+     coalesce(target.name, target.text) AS CourseCompetence,
+     c.title AS CourseTitle,
+     c.link AS CourseLink,
+     round(graphSimilarity, 3) AS GraphSimilarity
+
+ORDER BY UncoveredSkill, GraphSimilarity DESC
+
+WITH UncoveredSkill, 
+     collect({
+       CourseCompetence: CourseCompetence,
+       CourseTitle: CourseTitle,
+       CourseLink: CourseLink,
+       GraphSimilarity: GraphSimilarity
+     }) AS SortedCourses
+
+RETURN UncoveredSkill, SortedCourses
+ORDER BY UncoveredSkill
