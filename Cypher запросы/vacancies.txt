@@ -1,0 +1,66 @@
+// 2. Загрузка вакансий (используем MERGE на случай повторного импорта)
+LOAD CSV WITH HEADERS FROM 'file:///vac_final_emb.csv' AS row
+MERGE (v:Vacancy {id: row.id})
+SET v.title = row.title,
+    v.company = row.company,
+    v.industry = row.industry,
+    v.url = row.url;
+
+// 3. Загрузка навыков (уже оптимизировано с MERGE)
+LOAD CSV WITH HEADERS FROM 'file:///vac_final_emb.csv' AS row
+WITH row 
+WHERE row.skills IS NOT NULL AND row.skills <> "" 
+  AND row.skills_embeddings_str IS NOT NULL AND row.skills_embeddings_str <> ""
+UNWIND range(0, size(split(row.skills, ';'))-1) AS i
+WITH row, i,
+     trim(split(row.skills, ';')[i]) AS skill_name,
+     split(row.skills_embeddings_str, '|')[i] AS embedding_str
+WHERE skill_name <> "" AND embedding_str <> ""
+WITH row, skill_name, embedding_str
+WHERE size(split(embedding_str, ',')) > 1
+MERGE (s:Skill {name: skill_name})
+SET s.embedding = [x IN split(embedding_str, ',') | toFloat(trim(x))]
+WITH row, s
+MATCH (v:Vacancy {id: row.id})
+MERGE (v)-[:REQUIRE]->(s);
+
+// 4. Загрузка требований
+LOAD CSV WITH HEADERS FROM 'file:///vac_final_emb.csv' AS row
+WITH row 
+WHERE row.requirement IS NOT NULL AND row.requirement <> "" 
+  AND row.requirement_embeddings_str IS NOT NULL AND row.requirement_embeddings_str <> ""
+UNWIND range(0, size(split(row.requirement, ';'))-1) AS i
+WITH row, i,
+     trim(split(row.requirement, ';')[i]) AS req_text,
+     split(row.requirement_embeddings_str, '|')[i] AS embedding_str
+WHERE req_text <> "" AND embedding_str <> ""
+WITH row, req_text, embedding_str
+WHERE size(split(embedding_str, ',')) > 1
+MERGE (req:Requirement {text: req_text})
+SET req.embedding = [x IN split(embedding_str, ',') | toFloat(trim(x))]
+WITH row, req
+MATCH (v:Vacancy {id: row.id})
+MERGE (v)-[:HAS_REQUIREMENT]->(req);
+
+// 5. Загрузка обязанностей
+LOAD CSV WITH HEADERS FROM 'file:///vac_final_emb.csv' AS row
+WITH row 
+WHERE row.responsibility IS NOT NULL AND row.responsibility <> "" 
+  AND row.responsibility_embeddings_str IS NOT NULL AND row.responsibility_embeddings_str <> ""
+UNWIND range(0, size(split(row.responsibility, ';'))-1) AS i
+WITH row, i,
+     trim(split(row.responsibility, ';')[i]) AS resp_text,
+     split(row.responsibility_embeddings_str, '|')[i] AS embedding_str
+WHERE resp_text <> "" AND embedding_str <> ""
+WITH row, resp_text, embedding_str
+WHERE size(split(embedding_str, ',')) > 1
+MERGE (resp:Responsibility {text: resp_text})
+SET resp.embedding = [x IN split(embedding_str, ',') | toFloat(trim(x))]
+WITH row, resp
+MATCH (v:Vacancy {id: row.id})
+MERGE (v)-[:HAS_RESPONSIBILITY]->(resp);
+
+
+MATCH (v:Vacancy)-[rel]->(node)
+RETURN v, rel, node
+LIMIT 100000
