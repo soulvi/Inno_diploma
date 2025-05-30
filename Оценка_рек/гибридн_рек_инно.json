@@ -1,0 +1,362 @@
+﻿[
+  {
+    "UncoveredSkill": "a/b тесты",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "a/b тесты",
+        "GraphSimilarity": 0.913,
+        "CourseLink": "https://openedu.ru/course/stankin/ATD/?session=2025",
+        "HybridSimilarity": 0.956,
+        "CourseTitle": "Аналитика технологических данных"
+      },
+      {
+        "TextSimilarity": 0.816,
+        "CourseCompetence": "математика, a/b тесты",
+        "GraphSimilarity": 0.844,
+        "CourseLink": "https://openedu.ru/course/hse/MATHSTAT_spec/?session=2023",
+        "HybridSimilarity": 0.83,
+        "CourseTitle": "Математическая статистика и А‍/‍В тестирование"
+      },
+      {
+        "TextSimilarity": 0.804,
+        "CourseCompetence": "аттестация методик",
+        "GraphSimilarity": 0.826,
+        "CourseLink": "https://openedu.ru/course/misis/METCON/?session=spring_2025",
+        "HybridSimilarity": 0.815,
+        "CourseTitle": "Разработка методик аналитического контроля"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "javascript",
+    "SortedCourses": [
+      {
+        "CourseCompetence": "синтаксис javascript",
+        "CourseLink": "https://openedu.ru/course/spbstu/PAJS/?session=spring_2025",
+        "CosineSimilarity": 0.8746068757521592,
+        "CourseTitle": "Программирование и алгоритмизация на Javascript. Часть 1"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "api",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "api",
+        "GraphSimilarity": 0.983,
+        "CourseLink": "https://openedu.ru/course/mephi/mephi_webprogr/?session=spring_2025",
+        "HybridSimilarity": 0.992,
+        "CourseTitle": "Веб-программирование"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "docker scikit learn",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 0.881,
+        "CourseCompetence": "scikit learn",
+        "GraphSimilarity": 0.97,
+        "CourseLink": "https://openedu.ru/course/stankin/ATD/?session=2025",
+        "HybridSimilarity": 0.926,
+        "CourseTitle": "Аналитика технологических данных"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "etl",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "etl",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/spbu/ECON_ANALYS3/?session=self_paced_2024",
+        "HybridSimilarity": 0.991,
+        "CourseTitle": "Практики работы с ETL-инструментами на бизнес-уровне"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "excel",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "excel",
+        "GraphSimilarity": 0.985,
+        "CourseLink": "https://openedu.ru/course/mephi/mephi_rvisLaTeX/?session=spring_2025",
+        "HybridSimilarity": 0.992,
+        "CourseTitle": "Работа в издательской системе LaTeX. Подготовка научных текстов с использованием специализированного программного обеспечения. Часть 1"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "excel",
+        "GraphSimilarity": 0.985,
+        "CourseLink": "https://openedu.ru/course/mephi/mephi_rvisLaTeX2/?session=spring_2025",
+        "HybridSimilarity": 0.992,
+        "CourseTitle": "Работа в издательской системе LaTeX. Подготовка научных текстов с использованием специализированного программного обеспечения. Часть 2"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "excel",
+        "GraphSimilarity": 0.985,
+        "CourseLink": "https://openedu.ru/course/misis/EXL/?session=spring_2025",
+        "HybridSimilarity": 0.992,
+        "CourseTitle": "Комплекс инструментов для бизнес-анализа. MS Excel."
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "excel",
+        "GraphSimilarity": 0.985,
+        "CourseLink": "https://openedu.ru/course/spbu/ECON_ANALYS3/?session=self_paced_2024",
+        "HybridSimilarity": 0.992,
+        "CourseTitle": "Практики работы с ETL-инструментами на бизнес-уровне"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "excel",
+        "GraphSimilarity": 0.985,
+        "CourseLink": "https://openedu.ru/course/spbu/SITE_ANALYS/?session=spring_2021",
+        "HybridSimilarity": 0.992,
+        "CourseTitle": "Введение в анализ данных сайтов"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "power bi",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "power bi",
+        "GraphSimilarity": 0.985,
+        "CourseLink": "https://openedu.ru/course/spbu/ECON_ANALYS4/?session=self_paced_2024",
+        "HybridSimilarity": 0.993,
+        "CourseTitle": "Практики создания аналитических панелей с помощью BI-платформ"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "sql",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "sql",
+        "GraphSimilarity": 0.98,
+        "CourseLink": "https://openedu.ru/course/spbstu/DATAM/?session=fall_2024_spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Управление данными"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "sql",
+        "GraphSimilarity": 0.98,
+        "CourseLink": "https://openedu.ru/course/spbu/DTBS/?session=spring_2021",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Базы данных"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "sql",
+        "GraphSimilarity": 0.98,
+        "CourseLink": "https://openedu.ru/course/stankin/ATD/?session=2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Аналитика технологических данных"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "sql",
+        "GraphSimilarity": 0.98,
+        "CourseLink": "https://openedu.ru/course/urfu/DATAINF/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Методы доступа к данным и информационного поиска"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "машинное обучение",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/mephi/mephi_mo/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Машинное обучение"
+      },      
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/msu/MACHINELEARNING/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Основы машинного обучения"
+      },   
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/hse/basic_ML/?session=2023",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Основы машинного обучения (вводный курс)"
+      },    
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/hse/MLAIPM/?session=2024",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Управление ML/AI проектами"
+      },   
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/hse/machine_learning_big_data/?session=2022",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Машинное обучение на больших данных"
+      },              
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/hse/COMPVISION/?session=2022",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Компьютерное зрение"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/hse/DIGLIT_4/?session=2022",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Цифровая грамотность для инженерных и технических направлений"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/hse/INTRAI/?session=2022",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Введение в искусственный интеллект"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/hse/PSYMOTIV/?session=2023",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Психология мотивации и эмоций"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/mephi/machinelearning_2/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Математические и инструментальные методы машинного обучения. Часть 2"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/mephi/machinelearning_3/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Математические и инструментальные методы машинного обучения. Часть 3"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/mephi/mephi_011_machinelearning/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Математические и инструментальные методы машинного обучения. Часть 1"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/msu/IINTELLIGENCE/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Основы искусственного интеллекта"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/mephi/mephi_oiadmo/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Основы интеллектуального анализа данных и машинного обучения"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/misis/MLRN/?session=spring_2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Машинное обучение и искусственный интеллект"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/spbu/VVEDVNAUKODAN/?session=spring_2022",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Наука о данных: введение"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "машинное обучение",
+        "GraphSimilarity": 0.981,
+        "CourseLink": "https://openedu.ru/course/stankin/ATD/?session=2025",
+        "HybridSimilarity": 0.99,
+        "CourseTitle": "Аналитика технологических данных"
+      },
+      {
+        "TextSimilarity": 0.904,
+        "CourseCompetence": "основы работы с данными и машинным обучением",
+        "GraphSimilarity": 0.977,
+        "CourseLink": "https://openedu.ru/course/hse/DIGLIT_1/?session=2022",
+        "HybridSimilarity": 0.94,
+        "CourseTitle": "Цифровая грамотность: базовый курс"
+      }
+    ]
+  },
+  {
+    "UncoveredSkill": "язык программирования r",
+    "SortedCourses": [
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "язык программирования r",
+        "GraphSimilarity": 0.986,
+        "CourseLink": "https://openedu.ru/course/hse/RLING/?session=2022",
+        "HybridSimilarity": 0.993,
+        "CourseTitle": "R для лингвистов: программирование и анализ данных"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "язык программирования r",
+        "GraphSimilarity": 0.986,
+        "CourseLink": "https://openedu.ru/course/spbu/STATIK/?session=summer_2022",
+        "HybridSimilarity": 0.993,
+        "CourseTitle": "Знакомство с R и базовая статистика"
+      },      
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "язык программирования r",
+        "GraphSimilarity": 0.986,
+        "CourseLink": "https://openedu.ru/course/spbu/STATIK2/?session=summer_2022",
+        "HybridSimilarity": 0.993,
+        "CourseTitle": "Линейная регрессия"
+      },
+      {
+        "TextSimilarity": 1.0,
+        "CourseCompetence": "язык программирования r",
+        "GraphSimilarity": 0.986,
+        "CourseLink": "https://openedu.ru/course/hse/TEXT/?session=2022",
+        "HybridSimilarity": 0.993,
+        "CourseTitle": "Анализ текстовых данных"
+      }     
+    ]
+  }
+]
